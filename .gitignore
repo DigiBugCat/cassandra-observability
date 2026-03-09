@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraform.lock.hcl
