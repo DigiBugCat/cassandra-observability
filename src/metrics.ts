@@ -23,6 +23,13 @@ export interface Metric {
   labels: Record<string, string>;
 }
 
+function escapePrometheusLabelValue(value: string): string {
+  return value
+    .replaceAll("\\", "\\\\")
+    .replaceAll("\n", "\\n")
+    .replaceAll('"', '\\"');
+}
+
 /** Create a counter metric (monotonically increasing). */
 export function counter(
   name: string,
@@ -60,7 +67,8 @@ export function serialize(metrics: Metric[]): string {
   return metrics
     .map((m) => {
       const labelStr = Object.entries(m.labels)
-        .map(([k, v]) => `${k}="${v}"`)
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([k, v]) => `${k}="${escapePrometheusLabelValue(v)}"`)
         .join(",");
       const fqn = labelStr ? `${m.name}{${labelStr}}` : m.name;
       return `${fqn} ${m.value} ${ts}`;
@@ -77,7 +85,14 @@ export async function pushMetrics(
   env: MetricsEnv,
   metrics: Metric[],
 ): Promise<void> {
-  if (!env.VM_PUSH_URL || metrics.length === 0) return;
+  if (
+    !env.VM_PUSH_URL ||
+    !env.VM_PUSH_CLIENT_ID ||
+    !env.VM_PUSH_CLIENT_SECRET ||
+    metrics.length === 0
+  ) {
+    return;
+  }
 
   try {
     await fetch(env.VM_PUSH_URL, {
