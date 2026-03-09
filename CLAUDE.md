@@ -17,6 +17,10 @@ cassandra-observability/
 ├── dashboards/
 │   ├── home.json            # Platform home dashboard
 │   ├── workers.json         # Worker/MCP request analytics
+│   ├── orchestrator.json    # Runner orchestrator metrics
+│   ├── sessions.json        # Session lifecycle dashboard
+│   ├── yt-mcp.json          # YT-MCP transcription metrics
+│   ├── cicd.json            # CI/CD & ARC runner metrics
 │   └── kustomization.yaml   # ConfigMaps for Grafana sidecar
 ├── infra/
 │   └── modules/

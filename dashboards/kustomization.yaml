@@ -22,3 +22,6 @@ configMapGenerator:
   - name: cassandra-dashboards-workers
     files:
       - workers.json
+  - name: cassandra-dashboards-cicd
+    files:
+      - cicd.json
