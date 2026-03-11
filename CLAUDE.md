@@ -20,13 +20,12 @@ cassandra-observability/
 │   ├── orchestrator.json    # Runner orchestrator metrics
 │   ├── sessions.json        # Session lifecycle dashboard
 │   ├── yt-mcp.json          # YT-MCP transcription metrics
-│   ├── cicd.json            # CI/CD & ARC runner metrics
+│   ├── cicd.json            # CI/CD & Woodpecker metrics
 │   └── kustomization.yaml   # ConfigMaps for Grafana sidecar
 ├── infra/
 │   └── modules/
 │       └── metrics-push/    # CF Access app + service token
-└── .github/workflows/
-    └── ci.yml               # Type-check only
+└── .woodpecker.yaml           # Type-check only
 ```
 
 ## Usage in Workers
