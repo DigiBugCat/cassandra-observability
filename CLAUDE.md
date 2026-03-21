@@ -50,12 +50,12 @@ Workers need these secrets (via `wrangler secret put`):
 CF Worker → POST vm-push.<domain>/api/v1/import/prometheus
           → CF Access (service token auth)
           → CF Tunnel (runner tunnel, extra ingress rule)
-          → vmsingle-vm-k8s-stack-victoria-metrics-k8s-stack.monitoring.svc:8428
+          → vmsingle-vm-k8s-stack-victoria-metrics-k8s-stack.infra.svc:8428
 ```
 
 ## Deploy
 
 ```bash
-# Dashboards: ArgoCD watches dashboards/ and syncs ConfigMaps to monitoring namespace
+# Dashboards: ArgoCD watches dashboards/ and syncs ConfigMaps to infra namespace
 # Infra: manual tofu apply from cassandra-infra/environments/production/observability/
 ```
